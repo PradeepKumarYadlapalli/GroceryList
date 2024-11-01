@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding: 0;
+        }
+        body{
+            font-family:Arial,sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container{
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius:8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin: 20px auto;
+        }
+        h1,h2{
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table,th,td{
+            border:1px solid #e0e0e0;
+        }
+        th,td{
+            padding: 12px;
+            text-align: center;
+        }
+        th{
+            background-color: #4caf50;
+            color: #fff;
+        }
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        label{
+            margin-bottom: 5px;
+            color:#555;
+            font-weight:bold;
+        }
+        input[type="text"],input[type="number"]{
+            padding:10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,input[type="number"]:focus{
+            border-color: #4caf50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76,175,80,0.2);
+        }
+        .submit-btn{
+            width:100%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover{
+            background-color: #45a049;
+        }
+        .grocery-list{
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .grocery-list h3{
+            font-weight: bold;
+            color: #4caf50;
+            text-align: center;
+        }
+        .grocery-item{
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Available Grocery Items</h1>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Price Per Unit</th>
+            </tr>
+            <tr>
+                <td>Apples</td>
+                <td>200 Per Kg</td>
+            </tr>
+            <tr>
+                <td>Bananas</td>
+                <td>60 Per Kg</td>
+            </tr>
+            <tr>
+                <td>Oranges</td>
+                <td>50 Per Kg</td>
+            </tr>
+            <tr>
+                <td>Tomato</td>
+                <td>50 Per Kg</td>
+            </tr>
+            <tr>
+                <td>Potato</td>
+                <td>45 Per Kg</td>
+            </tr>
+            <tr>
+                <td>Eggs</td>
+                <td>72 Per dozen</td>
+            </tr>
+            <tr>
+                <td>Bread</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>Milk</td>
+                <td>60 Per Liter</td>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <h2>Enter Grocery Item Details</h2>
+        <form id="grocery-form">
+            <div class="form-group">
+                <label for="item-name">Item Name</label>
+                <input type="text" id="item-name" name="item_name" placeholder="e.g., Apples" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" placeholder="e.g., 2" required>
+            </div>
+            <div class="form-group">
+                <label for="price-per-unit">Price per Unit</label>
+                <input type="number" step="0.01" id="price-per-unit" name="price_per_unit" placeholder="e.g., 50" required>
+            </div>
+            <button type="button" class="submit-btn" onclick="addToGroceryList()">Add to Grocery List</button>
+        </form>
+    </div>
+    <div class="container grocery-list" id="grocery-list">
+        <h3>Added To Cart</h3>
+    </div>
+    <script>
+        function addToGroceryList(){
+            const itemName=document.getElementById("item-name").value;
+            const quantity=document.getElementById("quantity").value;
+            const pricePerUnit=document.getElementById("price-per-unit").value;
+            const totalPrice=(quantity*pricePerUnit).toFixed(2);
+            const groceryList=document.getElementById("grocery-list");
+            const item=document.createElement("div");
+            item.classList.add("grocery-item");
+            item.innerHTML=`<strong>${itemName}</strong>:${quantity} at ${pricePerUnit} per unit, Total:${totalPrice}`;
+            groceryList.appendChild(item);
+            document.getElementById("grocery-form").reset();
+        }
+    </script>
+</body>
+</html>
